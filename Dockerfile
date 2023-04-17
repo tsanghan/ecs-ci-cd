@@ -1,16 +1,16 @@
 FROM node:16-alpine
 
-# Create app directory
+# # Create app directory
 WORKDIR /my-app
 
-# Install app dependencies
-# A wildcard is used to ensure both package.json AND package-lock.json are copied
+# # Install app dependencies
+# # A wildcard is used to ensure both package.json AND package-lock.json are copied
 COPY package*.json ./
 
 RUN npm install
 
-# Bundle app source
+# # Bundle app source
 COPY . .
 
-EXPOSE 8080
+EXPOSE 80
 CMD [ "node", "index.js" ]
