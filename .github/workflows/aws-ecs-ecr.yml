@@ -31,12 +31,12 @@ on:
     branches: [ "main" ]
 
 env:            
-  AWS_REGION: ap-southeast-1           
-  ECR_REPOSITORY: jaz-private-ecr          
-  ECS_SERVICE: nodeapp           
-  ECS_CLUSTER: nodecluster                       
-  CONTAINER_NAME: nodeapp
-  TASK_DEF: nodeapp              
+  AWS_REGION: us-east-1           
+  ECR_REPOSITORY: jaz-ecr-ecs-demo          
+  ECS_SERVICE: hello-node          
+  ECS_CLUSTER: ecs-demo                       
+  CONTAINER_NAME: hello-node
+  TASK_DEF: ecs-demo-hello-node          
                                                
 
 # permissions:
