@@ -31,12 +31,11 @@ on:
     branches: [ "main" ]
 
 env:            
-  AWS_REGION: us-east-1           
-  ECR_REPOSITORY: jaz-ecr-ecs-demo          
-  ECS_SERVICE: hello-node          
-  ECS_CLUSTER: ecs-demo                       
-  CONTAINER_NAME: hello-node
-  TASK_DEF: ecs-demo-hello-node          
+  AWS_REGION: ap-southeast-1           
+  ECR_REPOSITORY: hellonode-ecr        
+  ECS_SERVICE: hellonode-svc          
+  ECS_CLUSTER: hellonode                      
+  CONTAINER_NAME: hellonode          
                                                
 
 # permissions:
@@ -75,7 +74,7 @@ jobs:
     
     - name: Download task definition
       run: |
-        aws ecs describe-task-definition --task-definition ${{ env.TASK_DEF }} --query taskDefinition > task-definition.json
+        aws ecs describe-task-definition --task-definition hellonode-td --query taskDefinition > task-definition.json
 
     - name: Fill in the new image ID in the Amazon ECS task definition
       id: task-def
