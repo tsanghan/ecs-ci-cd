@@ -31,8 +31,8 @@ on:
     branches: [ "main" ]
 
 env:            
-  AWS_REGION: ap-southeast-1           
-  ECR_REPOSITORY: hellonode-ecr       
+  AWS_REGION: us-east-1           
+  ECR_REPOSITORY: jazeel-node-app       
   ECS_SERVICE: hellonodesvc          
   ECS_CLUSTER: hellonode-cluster                     
   CONTAINER_NAME: hellonode         
