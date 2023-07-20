@@ -1,7 +1,21 @@
+data "aws_vpc" "selected" {
+  filter {
+    name   = "tag:Name"
+    values = ["sandbox-vpc"]
+  }
+}
+
+data "aws_subnets" "public" {
+  filter {
+    name   = "vpc-id"
+    values = [data.aws_vpc.selected.id]
+  }
+}
+
 module "ecs" {
   source = "terraform-aws-modules/ecs/aws"
 
-  cluster_name = "ecs-tf"
+  cluster_name = "ecs-tf"   #Change
 
   fargate_capacity_providers = {
     FARGATE = {
@@ -12,7 +26,7 @@ module "ecs" {
   }
 
   services = {
-    ecsdemo-frontend = { #td name
+    ecsdemo-frontend = { #td name -> #Change
       cpu    = 512
       memory = 1024
 
@@ -25,7 +39,7 @@ module "ecs" {
           port_mappings = [
             {
               name          = "ecs-sample"
-              containerPort = 8080
+              containerPort = 80
               protocol      = "tcp"
             }
           ]
@@ -35,7 +49,7 @@ module "ecs" {
       }
       assign_public_ip = true
       deployment_minimum_healthy_percent = 100
-      subnet_ids = ["subnet-0c236aa7db587a815", "subnet-0b442c55bfcaef886", "subnet-0860c289a56da0f08"]
+      subnet_ids = flatten(data.aws_subnets.public.ids)
       security_group_rules = {
         ingress_all = {
           type                     = "ingress"
