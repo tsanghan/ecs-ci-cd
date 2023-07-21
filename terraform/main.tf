@@ -26,7 +26,7 @@ module "ecs" {
   }
 
   services = {
-    ecsdemo-frontend = { #td name -> #Change
+    ecsdemo = { #task def and service name -> #Change
       cpu    = 512
       memory = 1024
 
@@ -38,7 +38,7 @@ module "ecs" {
           image     = "public.ecr.aws/docker/library/httpd:latest"
           port_mappings = [
             {
-              name          = "ecs-sample"
+              name          = "ecs-sample"  #container name
               containerPort = 80
               protocol      = "tcp"
             }
@@ -50,24 +50,7 @@ module "ecs" {
       assign_public_ip = true
       deployment_minimum_healthy_percent = 100
       subnet_ids = flatten(data.aws_subnets.public.ids)
-      security_group_rules = {
-        ingress_all = {
-          type                     = "ingress"
-          from_port                = 0
-          to_port                  = 0
-          protocol                 = "-1"
-          description              = "Allow all"
-          cidr_blocks = ["0.0.0.0/0"]
-        }
-        egress_all = {
-          type        = "egress"
-          from_port   = 0
-          to_port     = 0
-          protocol    = "-1"
-          cidr_blocks = ["0.0.0.0/0"]
-        }
-      }
+      security_group_ids  = ["sg-01adb0fa94b766534"]
     }
   }
-
 }
