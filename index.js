@@ -19,7 +19,7 @@ const ENV = 'DEV';
 const app = express();
 app.get('/', (req, res) => {
   res.statusCode = 200;
-  const msg = 'Hello from Node 3!';
+  const msg = 'Hello from Node 4!';
   res.send(msg);
 });
 
