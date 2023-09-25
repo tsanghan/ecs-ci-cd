@@ -32,7 +32,7 @@ on:
 
 env:            
   AWS_REGION: ap-southeast-1           
-  ECR_REPOSITORY: jazeel-node-app       
+  ECR_REPOSITORY: chathra-node-app       
   ECS_SERVICE: ecsdemo         
   ECS_CLUSTER: ecs-tf                     
   CONTAINER_NAME: ecs-sample         
