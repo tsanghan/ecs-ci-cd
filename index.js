@@ -1,7 +1,7 @@
 // before rum
 //npm install express
 
-// to run 
+// to run
 // npm start
 
 'use strict';

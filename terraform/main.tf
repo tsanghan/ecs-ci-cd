@@ -1,7 +1,7 @@
 data "aws_vpc" "selected" {
   filter {
     name   = "tag:Name"
-    values = ["sctp-sandbox-vpc-vpc"]
+    values = ["Default VPC"]
   }
 }
 
@@ -15,7 +15,7 @@ data "aws_subnets" "public" {
 module "ecs" {
   source = "terraform-aws-modules/ecs/aws"
 
-  cluster_name = "ecs-tf"   #Change
+  cluster_name = "tsanghan-ce6-tf"   #Change
 
   fargate_capacity_providers = {
     FARGATE = {
@@ -26,7 +26,7 @@ module "ecs" {
   }
 
   services = {
-    ecsdemo = { #task def and service name -> #Change
+    tsanghan-service = { #task def and service name -> #Change
       cpu    = 512
       memory = 1024
 
@@ -34,11 +34,11 @@ module "ecs" {
       container_definitions = {
 
         ecs-sample = { #container name
-          essential = true 
-          image     = "public.ecr.aws/docker/library/httpd:latest"
+          essential = true
+          image     = "public.ecr.aws/u2q1a2y8/tsanghan-ce6/hello-node-app:v1"
           port_mappings = [
             {
-              name          = "ecs-sample"  #container name
+              name          = "hello-node-app-ecs"  #container name
               containerPort = 8080
               protocol      = "tcp"
             }
@@ -56,7 +56,7 @@ module "ecs" {
 }
 
 resource "aws_security_group" "allow_sg" {
-  name        = "allow_tls"
+  name        = "tsanghan_allow_tls"
   description = "Allow traffic"
   vpc_id      = data.aws_vpc.selected.id
 
@@ -65,7 +65,8 @@ resource "aws_security_group" "allow_sg" {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
-    cidr_blocks = [data.aws_vpc.selected.cidr_block]
+    #cidr_blocks = [data.aws_vpc.selected.cidr_block]
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
   egress {

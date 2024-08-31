@@ -30,13 +30,14 @@ on:
   push:
     branches: [ "main" ]
 
-env:            
-  AWS_REGION: ap-southeast-1           
-  ECR_REPOSITORY: chathra-node-app       
-  ECS_SERVICE: ecsdemo         
-  ECS_CLUSTER: ecs-tf                     
-  CONTAINER_NAME: ecs-sample         
-                                               
+env:
+  AWS_REGION: ap-southeast-1
+  ECR_REGISTRY: public.ecr.aws/u2q1a2y8
+  ECR_REPOSITORY: tsanghan-ce6/hello-node-app
+  ECS_SERVICE: tsanghan-ce6-ecsdemo
+  ECS_CLUSTER: tsanghan-ce6-ecs-tf
+  CONTAINER_NAME: tsanghan-ce6-ecs-sample
+
 
 # permissions:
 #   contents: read
@@ -71,7 +72,7 @@ jobs:
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
         echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
-    
+
     - name: Download task definition
       run: |
         aws ecs describe-task-definition --task-definition ecsdemo --query taskDefinition > task-definition.json
@@ -91,3 +92,4 @@ jobs:
         service: ${{ env.ECS_SERVICE }}
         cluster: ${{ env.ECS_CLUSTER }}
         wait-for-service-stability: true
+
