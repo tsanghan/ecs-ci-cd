@@ -62,12 +62,17 @@ jobs:
     - name: Login to Amazon ECR
       id: login-ecr-public
       uses: aws-actions/amazon-ecr-login@v1
+      with:
+        registry-type: public
+      env:
+        AWS_REGION: us-east-1
 
     - name: Build, tag, and push image to Amazon ECR
       id: build-image
       env:
         ECR_REGISTRY: ${{ steps.login-ecr-public.outputs.registry }}
         IMAGE_TAG: ${{ github.sha }}
+        AWS_REGION: us-east-1
       run: |
         docker build -t $ECR_REGISTRY/$REGISTRY_ALIAS/$ECR_REPOSITORY:$IMAGE_TAG .
         # aws ecr-public create-repository --repository-name tsanghan-ce6/hello-node-app --region us-east-1
