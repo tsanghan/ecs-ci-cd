@@ -34,7 +34,7 @@ on:
 env:
   AWS_REGION: ap-southeast-1
   ECR_REPOSITORY: tsanghan-ce6/hello-node-app
-  ECS_SERVICE: tsanghan-ce6-ecsdemo
+  ECS_SERVICE: tsanghan-service
   ECS_CLUSTER: tsanghan-ce6-ecs-tf
   CONTAINER_NAME: tsanghan-ce6-ecs-sample
   REGISTRY_ALIAS: u2q1a2y8
