@@ -15,7 +15,7 @@ data "aws_subnets" "public" {
 module "ecs" {
   source = "terraform-aws-modules/ecs/aws"
 
-  cluster_name = "tsanghan-ce6-tf"   #Change
+  cluster_name = "tsanghan-ce6-tf" #Change
 
   fargate_capacity_providers = {
     FARGATE = {
@@ -33,12 +33,12 @@ module "ecs" {
       # Container definition(s)
       container_definitions = {
 
-        ecs-sample = { #container name
+        tsanghan-ce6-ecs-sample = { #container name
           essential = true
           image     = "public.ecr.aws/u2q1a2y8/tsanghan-ce6/hello-node-app:v1"
           port_mappings = [
             {
-              name          = "hello-node-app-ecs"  #container name
+              name          = "hello-node-app-ecs" #container name
               containerPort = 8080
               protocol      = "tcp"
             }
@@ -47,10 +47,10 @@ module "ecs" {
 
         }
       }
-      assign_public_ip = true
+      assign_public_ip                   = true
       deployment_minimum_healthy_percent = 100
-      subnet_ids = flatten(data.aws_subnets.public.ids)
-      security_group_ids  = [aws_security_group.allow_sg.id]
+      subnet_ids                         = flatten(data.aws_subnets.public.ids)
+      security_group_ids                 = [aws_security_group.allow_sg.id]
     }
   }
 }
