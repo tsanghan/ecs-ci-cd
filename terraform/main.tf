@@ -15,7 +15,7 @@ data "aws_subnets" "public" {
 module "ecs" {
   source = "terraform-aws-modules/ecs/aws"
 
-  cluster_name = "tsanghan-ce6-tf" #Change
+  cluster_name = "tsanghan-ce6-ecs-tf" #Change
 
   fargate_capacity_providers = {
     FARGATE = {
